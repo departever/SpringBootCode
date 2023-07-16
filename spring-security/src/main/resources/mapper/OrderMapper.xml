@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.OrderMapper">
+    <select id="selectAllOrder" resultType="com.example.domain.Order">
+        select * from tb_order
+        <where>
+            <!-- 动态sql中的条件判断， 如果test 值为true，
+            则将执行标签中的内容， 如果值为false， 这忽略标签中的内容 -->
+            <if test="title != null and title != ''">
+                title like '%${title}%'
+            </if>
+        </where>
+    </select>
+
+    <!-- 获取最新的10条商品-->
+    <select id="selectHostGoods" parameterType="int" resultType="string">
+        select title from tb_order order by update_time limit #{value}
+    </select>
+
+</mapper>
+

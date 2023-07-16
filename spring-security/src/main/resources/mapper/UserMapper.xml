@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.domain.MyUser" >
+        <result column="user_name" property="userName" />
+        <result column="password" property="password" />
+        <result column="nick_name" property="nickName" />
+        <result column="phone" property="phone" />
+        <result column="identity_num" property="identityNum" />
+        <result column="address" property="address" />
+        <result column="role" property="role" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="integral" property="integral" />
+        <result column="credit" property="credit" />
+        <result column="avatar" property="avatar" />
+        <result column="real_name" property="realName" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_name,
+                password,
+                nick_name,
+                phone,
+                identity_num,
+                address,
+                role,
+                create_time,
+                update_time,
+                integral,
+                credit,
+                avatar,
+                real_name
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.example.domain.MyUser">
+        INSERT INTO tb_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="null != userName and '' != userName">
+                user_name,
+            </if>
+            <if test="null != password and '' != password">
+                password,
+            </if>
+            <if test="null != nickName and '' != nickName">
+                nick_name,
+            </if>
+            <if test="null != phone and '' != phone">
+                phone,
+            </if>
+            <if test="null != identityNum and '' != identityNum">
+                identity_num,
+            </if>
+            <if test="null != address and '' != address">
+                address,
+            </if>
+            <if test="null != role and '' != role">
+                role,
+            </if>
+            <if test="null != createTime and '' != createTime">
+                create_time,
+            </if>
+            <if test="null != updateTime and '' != updateTime">
+                update_time,
+            </if>
+            <if test="null != integral and '' != integral">
+                integral,
+            </if>
+            <if test="null != credit and '' != credit">
+                credit,
+            </if>
+            <if test="null != avatar and '' != avatar">
+                avatar,
+            </if>
+            <if test="null != realName and '' != realName">
+                real_name
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="null != userName and '' != userName">
+                #{userName},
+            </if>
+            <if test="null != password and '' != password">
+                #{password},
+            </if>
+            <if test="null != nickName and '' != nickName">
+                #{nickName},
+            </if>
+            <if test="null != phone and '' != phone">
+                #{phone},
+            </if>
+            <if test="null != identityNum and '' != identityNum">
+                #{identityNum},
+            </if>
+            <if test="null != address and '' != address">
+                #{address},
+            </if>
+            <if test="null != role and '' != role">
+                #{role},
+            </if>
+            <if test="null != createTime and '' != createTime">
+                #{createTime},
+            </if>
+            <if test="null != updateTime and '' != updateTime">
+                #{updateTime},
+            </if>
+            <if test="null != integral and '' != integral">
+                #{integral},
+            </if>
+            <if test="null != credit and '' != credit">
+                #{credit},
+            </if>
+            <if test="null != avatar and '' != avatar">
+                #{avatar},
+            </if>
+            <if test="null != realName and '' != realName">
+                #{realName}
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete" >
+        DELETE FROM tb_user
+        WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.example.domain.MyUser">
+        UPDATE user
+        <set>
+            <if test="null != userName and '' != userName">user_name = #{userName},</if>
+            <if test="null != password and '' != password">password = #{password},</if>
+            <if test="null != nickName and '' != nickName">nick_name = #{nickName},</if>
+            <if test="null != phone and '' != phone">phone = #{phone},</if>
+            <if test="null != identityNum and '' != identityNum">identity_num = #{identityNum},</if>
+            <if test="null != address and '' != address">address = #{address},</if>
+            <if test="null != role and '' != role">role = #{role},</if>
+            <if test="null != createTime and '' != createTime">create_time = #{createTime},</if>
+            <if test="null != updateTime and '' != updateTime">update_time = #{updateTime},</if>
+            <if test="null != integral and '' != integral">integral = #{integral},</if>
+            <if test="null != credit and '' != credit">credit = #{credit},</if>
+            <if test="null != avatar and '' != avatar">avatar = #{avatar},</if>
+            <if test="null != realName and '' != realName">real_name = #{realName}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="load" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM tb_user
+        WHERE id = #{id}
+    </select>
+
+    <select id="pageList" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM tb_user
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="pageListCount" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM tb_user
+    </select>
+
+    <select id="selectByPrimaryKey" resultType="com.example.domain.MyUser">
+        select * from tb_user where user_name = #{username}
+    </select>
+
+</mapper>
